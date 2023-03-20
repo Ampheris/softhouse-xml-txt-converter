@@ -1,5 +1,6 @@
 const fs = require('fs');
 const converter = require('./converter');
+const path = require("path");
 
 function saveFile(data) {
     fs.writeFile("people.xml", data, (err) => {
@@ -14,7 +15,8 @@ function saveFile(data) {
 }
 
 function parseTxtFile(textFile) {
-    fs.readFile(textFile, 'utf8', (err, data) => {
+    let filename = path.join(process.cwd(),textFile);
+    fs.readFile(filename, 'utf8', (err, data) => {
         let fileData = data.split('\r\n');
         let sortedData = converter.arraySorter(fileData);
         let xmlData = converter.xmlConverter(sortedData);
